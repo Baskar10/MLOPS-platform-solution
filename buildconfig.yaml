@@ -1,0 +1,17 @@
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  name: simple-interest-calculator
+spec:
+  source:
+    type: Git
+    git:
+      uri: "https://github.com/Baskar10/MLOPS-platform-solution.git"
+  strategy:
+    type: Docker
+    dockerStrategy:
+      dockerfilePath: Dockerfile
+  output:
+    to:
+      kind: ImageStreamTag
+      name: simple-interest-calculator:latest
