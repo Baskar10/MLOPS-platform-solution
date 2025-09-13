@@ -1,23 +1,17 @@
-# Use official Python base image
 FROM python:3.11-slim
 
-# Set working directory
-WORKDIR /opt/app-root/src
+WORKDIR /opt/app
 
-# Copy requirements first for caching
+# Copy requirements
 COPY requirements.txt .
 
-# Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the application code
-COPY . .
+# Copy package folder
+COPY simple_interest_calculator/ ./simple_interest_calculator/
 
-# Expose a port if your application is web-based (optional)
-EXPOSE 8080
+# Set Python path
+ENV PYTHONPATH=/opt/app
 
-# Set environment variable for Python to run in unbuffered mode
-ENV PYTHONUNBUFFERED=1
-
-# Default command to run your app
+# Run the main module
 CMD ["python", "-m", "simple_interest_calculator.calculator"]
